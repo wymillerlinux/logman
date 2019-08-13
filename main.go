@@ -8,6 +8,6 @@ func main() {
 	//var config Configuration
 
 	config := initializeConfig("config.yaml")
-	fmt.Println(config.Username)
+	fmt.Println(config.Hosts)
 
 }
