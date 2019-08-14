@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	"golang.org/x/crypto/ssh"
 )
 
 func main() {
@@ -17,12 +15,4 @@ func main() {
 	//fmt.Println(sshConn.Hosts)
 	clientConns := sshConn.dialConnection(sshConfig)
 	fmt.Println(clientConns)
-
-	sshSuccess, err := ssh.Dial("tcp", "crash.local:22", sshConfig)
-
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(sshSuccess)
 }
