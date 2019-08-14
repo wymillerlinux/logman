@@ -21,6 +21,8 @@ type SSHConnection struct {
 
 type SSHCleints []*ssh.Client
 
+type SSHSessions []*ssh.Session
+
 func initializeConnection(config Configuration) (SSHConnection, *ssh.ClientConfig) {
 	var sshConn SSHConnection
 	sshConn.Username = config.Username
@@ -44,7 +46,7 @@ func (s SSHConnection) getHostKeys() ssh.HostKeyCallback {
 }
 
 func (s SSHConnection) dialConnection(sshConfig *ssh.ClientConfig) SSHCleints {
-	ClientConn := SSHCleints{}
+	clientConn := SSHCleints{}
 
 	for _, j := range s.Hosts {
 		hostPort := fmt.Sprintf("%s:22", j)
@@ -54,8 +56,25 @@ func (s SSHConnection) dialConnection(sshConfig *ssh.ClientConfig) SSHCleints {
 			fmt.Errorf("Can't connect", err)
 		}
 
-		ClientConn = append(ClientConn, connection)
+		clientConn = append(clientConn, connection)
 	}
 
-	return ClientConn
+	return clientConn
+}
+
+func (s SSHConnection) openSession(client SSHCleints) SSHSessions {
+	// don't forget there's a return type here
+	clientSessions := SSHSessions{}
+
+	for _, j := range client {
+		session, err := j.NewSession()
+
+		if err != nil {
+			fmt.Errorf("Can't open session", err)
+		}
+
+		clientSessions = append(clientSessions, session)
+	}
+
+	return clientSessions
 }

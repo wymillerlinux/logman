@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 func main() {
 	//fmt.Println("Hello!")
@@ -10,9 +8,8 @@ func main() {
 	//var config Configuration
 
 	config := initializeConfig("config.yaml")
-	//fmt.Println(config.Hosts)
 	sshConn, sshConfig := initializeConnection(config)
-	//fmt.Println(sshConn.Hosts)
 	clientConns := sshConn.dialConnection(sshConfig)
-	fmt.Println(clientConns)
+	clientSessions := sshConn.openSession(clientConns)
+	fmt.Println(clientSessions)
 }
