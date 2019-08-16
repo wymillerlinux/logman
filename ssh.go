@@ -21,7 +21,14 @@ type SSHConnection struct {
 
 type SSHCleints []*ssh.Client
 
+// TODO: I've got two slices of the same type. To take one slice out, some refactoring is needed
 type SSHSessions []*ssh.Session
+
+type SSHTarFile []*ssh.Session
+
+type SSHPush []*ssh.Client
+
+type SSHSuccess []error
 
 func initializeConnection(config Configuration) (SSHConnection, *ssh.ClientConfig) {
 	var sshConn SSHConnection
@@ -63,7 +70,6 @@ func (s SSHConnection) dialConnection(sshConfig *ssh.ClientConfig) SSHCleints {
 }
 
 func (s SSHConnection) openSession(client SSHCleints) SSHSessions {
-	// don't forget there's a return type here
 	clientSessions := SSHSessions{}
 
 	for _, j := range client {
@@ -77,4 +83,22 @@ func (s SSHConnection) openSession(client SSHCleints) SSHSessions {
 	}
 
 	return clientSessions
+}
+
+func (s SSHConnection) executeTarFile(execute SSHSessions) SSHSuccess {
+	// execute order 66 lol
+	success := SSHSuccess{}
+
+	for _, j := range execute {
+		// this is just a placeholder, change to the actual tarring executable
+		err := j.Run("echo 'hello world'! > test.txt")
+
+		if err != nil {
+			fmt.Errorf("Can't execute program", err)
+		}
+
+		success = append(success, err)
+	}
+
+	return success
 }
