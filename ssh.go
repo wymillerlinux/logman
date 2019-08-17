@@ -30,8 +30,8 @@ type SSHPush []*ssh.Client
 
 type SSHSuccess []error
 
-func initializeConnection(config Configuration) (SSHConnection, *ssh.ClientConfig) {
-	sshConn := SSHConnection{
+func initializeConnection(config Configuration) (*SSHConnection, *ssh.ClientConfig) {
+	sshConn := &SSHConnection{
 		Username: config.Username,
 		Password: config.Password,
 		Port:     config.Port,
