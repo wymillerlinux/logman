@@ -31,11 +31,12 @@ type SSHPush []*ssh.Client
 type SSHSuccess []error
 
 func initializeConnection(config Configuration) (SSHConnection, *ssh.ClientConfig) {
-	var sshConn SSHConnection
-	sshConn.Username = config.Username
-	sshConn.Password = config.Password
-	sshConn.Port = config.Port
-	sshConn.Hosts = config.Hosts
+	sshConn := SSHConnection{
+		Username: config.Username,
+		Password: config.Password,
+		Port:     config.Port,
+		Hosts:    config.Hosts,
+	}
 
 	sshConfig := &ssh.ClientConfig{
 		User: sshConn.Username,
