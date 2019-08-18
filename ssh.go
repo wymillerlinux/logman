@@ -91,8 +91,8 @@ func (s SSHConnection) executeTarFile(execute SSHSessions) SSHSuccess {
 	success := SSHSuccess{}
 
 	for _, j := range execute {
-		// this is just a placeholder, change to the actual tarring executable
-		err := j.Run("echo 'hello world'! > test.txt")
+		// TODO: this is just a placeholder, change to the actual tarring executable
+		err := j.Run("echo 'hello world' > test.txt")
 
 		if err != nil {
 			fmt.Errorf("Can't execute program", err)
