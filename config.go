@@ -9,7 +9,7 @@ import (
 type Configuration struct {
 	Username string
 	Password string
-	Port     string
+	Port     int
 	Hosts    []string
 }
 

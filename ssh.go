@@ -15,11 +15,11 @@ import (
 type SSHConnection struct {
 	Username string
 	Password string
-	Port     string
+	Port     int
 	Hosts    []string
 }
 
-type SSHCleints []*ssh.Client
+type SSHClients []*ssh.Client
 
 // TODO: I've got two slices of the same type. To take one slice out, some refactoring is needed
 type SSHSessions []*ssh.Session
@@ -27,6 +27,8 @@ type SSHSessions []*ssh.Session
 type SSHTarFile []*ssh.Session
 
 type SSHPush []*ssh.Client
+
+type SSHSFTP []string
 
 type SSHSuccess []error
 
@@ -53,8 +55,8 @@ func (s SSHConnection) getHostKeys() ssh.HostKeyCallback {
 	return ssh.InsecureIgnoreHostKey()
 }
 
-func (s SSHConnection) dialConnection(sshConfig *ssh.ClientConfig) SSHCleints {
-	clientConn := SSHCleints{}
+func (s SSHConnection) dialConnection(sshConfig *ssh.ClientConfig) SSHClients {
+	clientConn := SSHClients{}
 
 	for _, j := range s.Hosts {
 		hostPort := fmt.Sprintf("%s:22", j)
@@ -70,7 +72,7 @@ func (s SSHConnection) dialConnection(sshConfig *ssh.ClientConfig) SSHCleints {
 	return clientConn
 }
 
-func (s SSHConnection) openSession(client SSHCleints) SSHSessions {
+func (s SSHConnection) openSession(client SSHClients) SSHSessions {
 	clientSessions := SSHSessions{}
 
 	for _, j := range client {
@@ -86,20 +88,25 @@ func (s SSHConnection) openSession(client SSHCleints) SSHSessions {
 	return clientSessions
 }
 
-func (s SSHConnection) executeTarFile(execute SSHSessions) SSHSuccess {
+func (s SSHConnection) executeSFTP(execute SSHClients) SSHSFTP {
 	// execute order 66 lol
-	success := SSHSuccess{}
+	sftp := SSHSFTP{}
 
 	for _, j := range execute {
 		// TODO: this is just a placeholder, change to the actual tarring executable
-		err := j.Run("echo 'hello world' > test.txt")
+		getFile(j)
+
+		err := gzipit("/root/"+filename, ".")
 
 		if err != nil {
-			fmt.Errorf("Can't execute program", err)
+			fmt.Errorf("Cannot gzip file(s)", err)
 		}
 
-		success = append(success, err)
 	}
 
-	return success
+	return sftp
+}
+
+func (s SSHConnection) gzipItUp() {
+	// TODO: placeholder function??
 }

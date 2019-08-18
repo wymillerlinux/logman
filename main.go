@@ -6,7 +6,7 @@ func main() {
 	config := initializeConfig("config.yaml")
 	sshConn, sshConfig := initializeConnection(config)
 	clientConns := sshConn.dialConnection(sshConfig)
-	clientSessions := sshConn.openSession(clientConns)
-	success := sshConn.executeTarFile(clientSessions)
+	_ = sshConn.openSession(clientConns)
+	success := sshConn.executeSFTP(clientConns)
 	fmt.Println(success)
 }
