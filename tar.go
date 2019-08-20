@@ -42,7 +42,7 @@ func gzipit(source string, target string) error {
 	return err
 }
 
-func ungzipit(source string, target string) {
+func gunzipit(source string, target string) {
 	reader, err := os.Open(source)
 
 	if err != nil {
