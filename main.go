@@ -1,6 +1,6 @@
 package main
 
-import "fmt"
+import "log"
 
 func main() {
 	config := initializeConfig("config.yaml")
@@ -8,5 +8,5 @@ func main() {
 	clientConns := sshConn.dialConnection(sshConfig)
 	_ = sshConn.openSession(clientConns)
 	success := sshConn.executeSFTP(clientConns)
-	fmt.Println(success)
+	log.Println(success)
 }

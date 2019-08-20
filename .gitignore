@@ -1,3 +1,5 @@
 config.yaml
 .vscode/
 vendor/
+*.log
+*.tar.gz
