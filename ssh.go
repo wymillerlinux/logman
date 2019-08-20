@@ -96,7 +96,7 @@ func (s SSHConnection) executeSFTP(execute SSHClients) SSHSFTP {
 		// TODO: this is just a placeholder, change to the actual tarring executable
 		getFile(j)
 
-		err := gzipit("/root/"+filename, ".")
+		err := gzipit("/home/wyatt/"+filename, ".")
 
 		if err != nil {
 			fmt.Errorf("Cannot gzip file(s)", err)

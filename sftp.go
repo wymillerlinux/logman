@@ -3,20 +3,18 @@ package main
 import (
 	"fmt"
 	"os"
-	"time"
 
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
 )
 
 var (
-	dstPath  string = "/root/"
+	dstPath  string = "/home/wyatt/"
 	srcPath  string = "/var/log/"
-	filename string = "dmesg"
+	filename string = "dpkg.log"
 )
 
 func getFile(client *ssh.Client) {
-	t := time.Now()
 	sftp, err := sftp.NewClient(client)
 
 	if err != nil {
@@ -33,8 +31,7 @@ func getFile(client *ssh.Client) {
 
 	defer srcFile.Close()
 
-	timeResult := timeToString(t)
-	dstFile, err := os.Create(dstPath + filename + timeResult)
+	dstFile, err := os.Create(dstPath + filename)
 
 	if err != nil {
 		fmt.Errorf("FUCK")
@@ -43,8 +40,4 @@ func getFile(client *ssh.Client) {
 	defer dstFile.Close()
 
 	srcFile.WriteTo(dstFile)
-}
-
-func timeToString(currentTime time.Time) string {
-	return currentTime.String()
 }
