@@ -4,3 +4,4 @@
 - Allow fetching of multiple log files (fields under the defined host? Seperate key/field? Dynamic?)
 - Allow different machines to collect different log files
 - Allow to gather directories of log files
+- Develop a log getting logs for sanity

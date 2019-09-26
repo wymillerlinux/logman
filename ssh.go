@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"golang.org/x/crypto/ssh"
 )
@@ -91,12 +92,13 @@ func (s SSHConnection) openSession(client SSHClients) SSHSessions {
 func (s SSHConnection) executeSFTP(execute SSHClients) SSHSFTP {
 	// execute order 66 lol
 	sftp := SSHSFTP{}
+	homedir := os.Getenv("HOME")
 
 	for _, j := range execute {
 		// TODO: this is just a placeholder, change to the actual tarring executable
 		getFile(j)
 
-		err := gzipit("/home/wyatt/"+filename, ".")
+		err := gzipit(homedir+filename, ".")
 
 		if err != nil {
 			fmt.Errorf("Cannot gzip file(s)", err)
