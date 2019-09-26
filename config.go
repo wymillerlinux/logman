@@ -11,6 +11,7 @@ type Configuration struct {
 	Password string
 	Port     int
 	Hosts    []string
+	Logs     []string
 }
 
 func initializeConfig(filename string) Configuration {
