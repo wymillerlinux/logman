@@ -18,6 +18,7 @@ type SSHConnection struct {
 	Password string
 	Port     int
 	Hosts    []string
+	Logs     []string
 }
 
 type SSHClients []*ssh.Client
@@ -39,6 +40,7 @@ func initializeConnection(config Configuration) (*SSHConnection, *ssh.ClientConf
 		Password: config.Password,
 		Port:     config.Port,
 		Hosts:    config.Hosts,
+		Logs:     config.Logs,
 	}
 
 	sshConfig := &ssh.ClientConfig{
@@ -96,7 +98,7 @@ func (s SSHConnection) executeSFTP(execute SSHClients) SSHSFTP {
 
 	for _, j := range execute {
 		// TODO: this is just a placeholder, change to the actual tarring executable
-		getFile(j)
+		s.getFile(j)
 
 		err := gzipit(homedir+filename, ".")
 

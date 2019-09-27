@@ -14,30 +14,34 @@ var (
 	filename string = "dpkg.log"
 )
 
-func getFile(client *ssh.Client) {
+func (s SSHConnection) getFile(client *ssh.Client) {
 	sftp, err := sftp.NewClient(client)
+	//var srcFile []*os.File
+	//var dstFile []*os.File
 
 	if err != nil {
-		fmt.Errorf("FUCK")
+		fmt.Errorf("Error")
 	}
 
 	defer sftp.Close()
 
-	srcFile, err := sftp.Open(srcPath + filename)
+	for _, j := range s.Logs {
+		srcFile, err := sftp.Open(srcPath + j)
 
-	if err != nil {
-		fmt.Errorf("FUCK")
+		if err != nil {
+			fmt.Errorf("Error")
+		}
+
+		defer srcFile.Close()
+
+		dstFile, err := os.Create(dstPath + j)
+
+		if err != nil {
+			fmt.Errorf("Error")
+		}
+
+		defer dstFile.Close()
+		srcFile.WriteTo(dstFile)
 	}
 
-	defer srcFile.Close()
-
-	dstFile, err := os.Create(dstPath + filename)
-
-	if err != nil {
-		fmt.Errorf("FUCK")
-	}
-
-	defer dstFile.Close()
-
-	srcFile.WriteTo(dstFile)
 }
