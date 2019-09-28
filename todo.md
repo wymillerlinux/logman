@@ -5,5 +5,3 @@
 - Allow different machines to collect different log files
 - Allow to gather directories of log files
 - Develop a log getting logs for sanity
-
-Developing a way to include a log space in the config which this program does not have.

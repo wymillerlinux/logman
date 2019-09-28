@@ -1,0 +1,21 @@
+# Configuration template
+#
+# username: "jbob"
+# password: "abc123"
+# port: 22
+# hosts:
+#  - "192.168.1.100"
+# logs:
+#   - "dpkg.log"
+#   - "dmesg"
+#
+---
+username: "jbob"
+password: "abc123"
+port: 22
+hosts:
+  - "example.com"
+  - "192.168.1.254"
+logs:
+  - "/var/log/dpkg.log"
+  - "/var/log/dmesg"
