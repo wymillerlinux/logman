@@ -1,8 +1,5 @@
 name: Go
 on:
-  push:
-    branches:
-      - master
   pull-request:
     branches:
       - master
