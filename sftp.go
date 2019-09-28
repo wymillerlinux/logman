@@ -8,25 +8,20 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
-var (
-	dstPath  string = "/home/wyatt/"
-	srcPath  string = "/var/log/"
-	filename string = "dpkg.log"
-)
-
-func (s SSHConnection) getFile(client *ssh.Client) {
-	sftp, err := sftp.NewClient(client)
-	//var srcFile []*os.File
-	//var dstFile []*os.File
-
-	if err != nil {
-		fmt.Errorf("Error")
-	}
-
-	defer sftp.Close()
+func (s SSHConnection) getFile(client *ssh.Client) []*os.File {
+	homedir, _ := os.UserHomeDir()
+	var dstFiles []*os.File
 
 	for _, j := range s.Logs {
-		srcFile, err := sftp.Open(srcPath + j)
+		sftp, err := sftp.NewClient(client)
+
+		if err != nil {
+			fmt.Errorf("Error")
+		}
+
+		defer sftp.Close()
+
+		srcFile, err := sftp.Open(j)
 
 		if err != nil {
 			fmt.Errorf("Error")
@@ -34,7 +29,9 @@ func (s SSHConnection) getFile(client *ssh.Client) {
 
 		defer srcFile.Close()
 
-		dstFile, err := os.Create(dstPath + j)
+		h := slashSeperator(j)
+
+		dstFile, err := os.Create(homedir + "/" + h)
 
 		if err != nil {
 			fmt.Errorf("Error")
@@ -42,6 +39,9 @@ func (s SSHConnection) getFile(client *ssh.Client) {
 
 		defer dstFile.Close()
 		srcFile.WriteTo(dstFile)
+
+		dstFiles = append(dstFiles, dstFile)
 	}
 
+	return dstFiles
 }
