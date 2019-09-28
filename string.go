@@ -14,6 +14,8 @@ func timeToString(currentTime time.Time) string {
 func osfileToSting(currentOsFile *os.File) string {
 	file, err := os.Open(currentOsFile.Name())
 
+	defer file.Close()
+
 	fileinfo, err := file.Stat()
 
 	if err != nil {
