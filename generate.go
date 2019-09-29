@@ -19,29 +19,38 @@ func doesConfigExist() bool {
 
 	if err != nil {
 		return false
-	} else {
-		return true
 	}
+
+	return true
 }
 
 func createTemplateConfig(result bool) {
 	if result == false {
 		os.Create(config)
 	} else {
-		fmt.Println()
+		fmt.Println("Configuration file already created")
 	}
 }
 
 func writeTemplateConfig(filename string) {
-	file := []byte(filename)
-	_ = ioutil.WriteFile("config.yaml", file, 0600)
+	hosts := make([]string, 1)
+	logs := make([]string, 1)
 
-	config := Configuration{}
+	config := Configuration{
+		"jbob",
+		"jbobisawesome",
+		22,
+		hosts,
+		logs,
+	}
 
-	_, err := yaml.Marshal(config)
+	data, err := yaml.Marshal(&config)
+
+	fmt.Printf(string(data))
+	_ = ioutil.WriteFile(filename, data, 0600)
 
 	if err != nil {
-		panic(err)
+		fmt.Errorf("Couldn't create the configuration file", err)
 	}
 
 	fmt.Println("Template for logman's configuration complete!")
