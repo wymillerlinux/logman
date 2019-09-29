@@ -1,6 +1,6 @@
 name: Go
 on:
-  pull-request:
+  push:
     branches:
       - master
 jobs:
