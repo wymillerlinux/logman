@@ -1,4 +1,6 @@
 # logman
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fwymillerlinux%2Flogman.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fwymillerlinux%2Flogman?ref=badge_shield)
+
 Collecting log files for the greater good!
 
 This program lets you grab log files remotely and store them up into a compressed file on your local machine!
@@ -36,3 +38,7 @@ I'm new to Go, so forgive the long wait time for any bux fix.
 
 ## Contributing
 If you would like to contribute, feel free to email me or send in pull requests. `todo.md` should have some things to get you rolling. There's quite a few items on there that I want added to make `logman` a finished product.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fwymillerlinux%2Flogman.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fwymillerlinux%2Flogman?ref=badge_large)
