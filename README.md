@@ -1,4 +1,7 @@
 # logman
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fwymillerlinux%2Flogman.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fwymillerlinux%2Flogman?ref=badge_shield)
+
 Collecting log files for the greater good!
 
 This program lets you grab log files remotely and store them up into a compressed file on your local machine!
