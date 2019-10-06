@@ -18,6 +18,9 @@ jobs:
       
     - name: Setup GOPATH
       run: mkdir -p /home/runner/go/bin
+      
+    - name: Install Go's dep dependency manager
+      run: curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v1
